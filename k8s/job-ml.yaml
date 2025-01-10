@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ml-generate-v1
+  namespace: jeanevangelista
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: ml-container
+          image: myregistry/ml:latest # TODO: update this
+          env:
+            - name: DATASET_PATH
+              value: /data/2023_spotify_ds1.csv
+            - name: MODEL_PATH
+              value: /data/model.pkl
+          volumeMounts:
+            - name: ml-volume
+              mountPath: /data
+      volumes:
+        - name: ml-volume
+          persistentVolumeClaim:
+            claimName: project2-pv2-jeanevangelista

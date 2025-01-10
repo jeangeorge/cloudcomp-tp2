@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment-v1
+  namespace: jeanevangelista
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: flask-app
+        version: v1
+    spec:
+      containers:
+        - name: flask-container
+          image: myregistry/flask:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MODEL_PATH
+              value: /data/model.pkl
+          volumeMounts:
+            - name: flask-volume
+              mountPath: /data
+      volumes:
+        - name: flask-volume
+          persistentVolumeClaim:
+            claimName: project2-pv2-jeanevangelista
