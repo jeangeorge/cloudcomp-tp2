@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playlist Recommendation</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="scripts.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Playlist Recommendation</h1>
+      <form onsubmit="submitForm(event)">
+        <div id="form-container" class="form-group">
+          <div class="form-group">
+            <input
+              type="text"
+              name="song"
+              placeholder="Enter song name"
+              required="required"
+            />
+          </div>
+        </div>
+        <button type="button" class="add-button" onclick="addField()">
+          Add Another Song
+        </button>
+        <br /><br />
+        <button type="submit" class="submit-button">Get Recommendations</button>
+      </form>
+    </div>
+  </body>
+</html>
