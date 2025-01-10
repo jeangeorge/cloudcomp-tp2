@@ -1,9 +1,7 @@
-# frontend/app.py
-
 import os
 import pickle
 import time
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -73,9 +71,9 @@ def recommend():
     }
     return jsonify(response)
 
-@app.route("/")
-def index():
-    return "Welcome to the Playlist Recommendation API!", 200
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
