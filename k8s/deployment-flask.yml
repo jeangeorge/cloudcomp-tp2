@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: flask-container
-          image: myregistry/flask:latest
+          image: jeanevangelista/flask:latest
           ports:
             - containerPort: 5000
           env:
