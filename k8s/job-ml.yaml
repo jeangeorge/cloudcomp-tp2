@@ -9,7 +9,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: ml-container
-          image: jeanevangelista/ml:latest
+          image: jeanevangelista/ml:0.1
           env:
             - name: DATASET_PATH
               value: /data/2023_spotify_ds1.csv
