@@ -48,7 +48,7 @@ async function submitForm(event) {
   const payload = { songs };
 
   try {
-    const response = await fetch("http://localhost:5000/api/recommend", {
+    const response = await fetch("http://localhost:52034/recommend", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -10,9 +10,9 @@ COPY app.py /app/
 COPY templates /app/templates
 COPY static /app/static
 
-EXPOSE 5000
+EXPOSE 52034
 
 ENV MODEL_PATH=/app/data/model.pkl
-ENV PORT=5000
+ENV PORT=52034
 
 CMD ["python", "app.py"]
