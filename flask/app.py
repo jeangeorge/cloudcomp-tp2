@@ -8,11 +8,10 @@ app = Flask(__name__)
 CORS(app)
 
 MODEL_PATH = os.environ.get("MODEL_PATH", "../local_data/model.pkl")
-MODEL_DATE = None
 MODEL = None
 
 def load_model():
-    global MODEL, MODEL_DATE
+    global MODEL
 
     if not os.path.exists(MODEL_PATH):
         return
@@ -21,11 +20,9 @@ def load_model():
 
     with open(MODEL_PATH, 'rb') as f:
         MODEL = pickle.load(f)
-    MODEL_DATE = file_mod_time
-    print("MODEL reloaded at:", time.ctime(MODEL_DATE))
 
 def get_recommendations(user_songs, max_recs=5, min_conf=0.0):
-    if MODEL is None or "rules" not in MODEL:
+    if "rules" not in MODEL:
         return []
 
     rules = MODEL["rules"]
@@ -48,15 +45,14 @@ def get_recommendations(user_songs, max_recs=5, min_conf=0.0):
 
 @app.route("/api/recommend", methods=["POST"])
 def recommend():
-    load_model()
-
-    if MODEL is None:
-        return jsonify({"error": "MODEL is not available"}), 500
-
     body = request.get_json()
     songs = body.get("songs", [])
     if not songs:
-        return jsonify({"error": "Please provide songs"}), 400
+        return jsonify({"error": "No songs provided."}), 400
+
+    load_model()
+    if MODEL is None:
+        return jsonify({"error": "Model not found."}), 500
 
     recommended_songs = get_recommendations(
         user_songs=songs,
@@ -64,11 +60,7 @@ def recommend():
         min_conf=0.3
     )
 
-    response = {
-        "songs": recommended_songs,
-        "version": "1.0.0",
-        "model_date": time.ctime(MODEL_DATE) if MODEL_DATE else "No model loaded"
-    }
+    response = { "songs": recommended_songs }
     return jsonify(response)
 
 @app.route("/", methods=["GET"])

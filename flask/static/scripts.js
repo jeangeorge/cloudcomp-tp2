@@ -38,7 +38,6 @@ async function submitForm(event) {
 
   const songs = Array.from(document.querySelectorAll("input[name='song']"))
     .map((input) => input.value.trim().toLowerCase())
-    .filter((song) => song);
 
   if (songs.length === 0) {
     alert("Please enter at least one song.");
