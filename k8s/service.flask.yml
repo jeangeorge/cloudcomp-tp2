@@ -9,6 +9,6 @@ spec:
   ports:
     - name: http
       port: 52034
-      targetPort: 52034
+      targetPort: 5000
       nodePort: 52034
   type: NodePort

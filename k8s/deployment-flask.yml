@@ -19,7 +19,7 @@ spec:
         - name: flask-container
           image: jeanevangelista/flask:latest
           ports:
-            - containerPort: 52034
+            - containerPort: 5000
           env:
             - name: MODEL_PATH
               value: /data/model.pkl
